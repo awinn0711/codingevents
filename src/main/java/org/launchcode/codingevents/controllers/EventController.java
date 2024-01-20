@@ -30,8 +30,9 @@ public class EventController {
     }
 
     @PostMapping("create")
-    public String createEvent(@RequestParam String eventName) {
-        events.add(new Event(eventName));
-        return "redirect:/events"; //redirects to root path
+    public String createEvent(@RequestParam String eventName,
+                              @RequestParam String eventDescription) {
+        events.add(new Event(eventName, eventDescription));
+        return "redirect:/events"; //redirects /events
     }
 }
