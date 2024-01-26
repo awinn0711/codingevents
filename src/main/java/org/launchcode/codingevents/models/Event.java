@@ -1,8 +1,6 @@
 package org.launchcode.codingevents.models;
 
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.*;
 
 import java.util.Objects;
 
@@ -22,15 +20,29 @@ public class Event {
     @Email(message = "Invalid Email")
     private String contactEmail;
 
+    @NotNull(message = "Location cannot be null")
+    @NotBlank(message = "Location cannot be blank")
+    @Size(min = 3, max = 50, message = "Location must be between 3 and 50 characters")
+    private String location;
+
+    @AssertTrue(message = "Attendee registration is required")
+    private boolean hasRegistration;
+
+    @Positive(message = "Need more attendees")
+    private Integer attendees;
+
     public Event() {
         this.id = nextId;
         nextId ++;
     };
-    public Event(String name, String description, String contactEmail) {
+    public Event(String name, String description, String contactEmail, String location, boolean hasRegistration, Integer attendees) {
         this();
         this.name = name;
         this.description = description;
         this.contactEmail = contactEmail;
+        this.location = location;
+        this.hasRegistration = hasRegistration;
+        this.attendees = attendees;
     }
 
 
@@ -56,6 +68,30 @@ public class Event {
 
     public void setContactEmail(String contactEmail) {
         this.contactEmail = contactEmail;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
+    public boolean isHasRegistration() {
+        return hasRegistration;
+    }
+
+    public void setHasRegistration(boolean hasRegistration) {
+        this.hasRegistration = hasRegistration;
+    }
+
+    public Integer getAttendees() {
+        return attendees;
+    }
+
+    public void setAttendees(Integer attendees) {
+        this.attendees = attendees;
     }
 
     public int getId() {
